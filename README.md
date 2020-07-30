@@ -1,2 +1,2 @@
-# Option Pricing App
+# Derivatives Pricing App
 By Dannie Chen
