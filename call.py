@@ -2,6 +2,7 @@ import numpy as np
 import scipy.stats as st
 import math
 
+# European Calls Pricing
 def black_scholes(S0, K, T, r, div, sigma):
     """
     Function to calcuslates the value of a European Call Option using Black Scholes 
@@ -26,6 +27,7 @@ def black_scholes(S0, K, T, r, div, sigma):
 
     return value
 
+# European Barrier Option - Down-and-out Call(continuous barrier)
 def barrier_bs(B, S0, K, T, r, div, sigma):
     """ 
     Function to calculates the value of a European Autocall Call Option using Black Scholes 
@@ -58,6 +60,8 @@ def barrier_bs(B, S0, K, T, r, div, sigma):
 
 if __name__ == "__main__":
     euro_call_value = black_scholes(100, 100, 0.2, 0.1, 0.05, 0.3)
+
+
     print(euro_call_value)
     print(barrier_bs(30, 100, 90, 2, 0.05, 0.03, 0.2))
 
