@@ -45,7 +45,6 @@ def CRRA_model(S0, K, T, r, sigma, start_step, N):
     option_value = np.zeros([N+1, N+1])
     stock_value = np.zeros([N+1, N+1])    
 
-    # FOR LOOP: a Binomial Tree from start_step to N
     for n in range(start_step, N+1):
         delta = T / n
         u = np.exp(sigma * (delta)**0.5)
@@ -53,37 +52,19 @@ def CRRA_model(S0, K, T, r, sigma, start_step, N):
         qu = (np.exp(r * delta) - d) / (u - d)
         qd = 1 - qu
 
-    # CALCULATE OPTION VALUES AT CERTAIN STEPS AND POSITIONS WITHIN THE BINOMIAL TREE:
-    # Start at the last step number because we are going to be moving backwards from step number n to step number 0
-    # j = n and range stop = j 
-    j = n 
+        j = n 
 
-    for i in range(0, j):    
-    # Then, calculate the value of the option at that exact position within the binomial tree
-    # The value of the option is MAX(stock_value - Exercise Price, 0)
-    # V = np.maximum(S - K, 0)
-    stock_value[j, i] = S0 * (u**i) * (d**(j - i))
-    option_value[j, i] = np.maximum(K - stock_value[j, i], 0)
+        for i in range(0, j):    
+            stock_value[j, i] = S0 * (u**i) * (d**(j - i))
+            option_value[j, i] = np.maximum(K - stock_value[j, i], 0)
 
-    # Now calculate the option value at each position (i) within the binomial tree at each previous step number (j) until time zero
-    # First, start with a FOR iteration on the step number
-    # Step backwards (Step -1) for the step number (j) because you are working backwards from the 2nd to last step (j - 1) to step number 0 
-    # start = (Step -1), stop = -1 (end of range is exclusive, stops at 0 when stop=-1) , step = -1 (moving backwards)
-    for j in range(n-1, -1, -1):
-
-    # Then, create a FOR iteration on the position number (i), from the top position all the way down to the bottom position of 0 (all down jumps)
-    # The top positions always equals j (the maximum number of possible up jumps at any time)
-    # Use Step -1, since you are moving from the top to the bottom. stop = -1 (end of range is exclusive, stops at 0 when stop=-1)        
-    for i in range(j, -1, -1):
-
-    # Now, calculation the PV of the option values at that specific position and step number
-    # V = e^(-r x Delta) (qu x Vup + qd x Vdown) 
-    stock_value[j, i] = S0 * (u**i) * (d**(j - i))
-    pv = np.exp(-r * delta) * (qu * option_value[j + 1, i + 1] + qd * option_value[j + 1, i])
-    option_value[j, i] = np.maximum(pv, K - stock_value[j, i])
-    # RELAY OUTPUTS TO DICTIONARY
-    output = {'num_steps': n, 'CRR': option_value[0,0]}
-    crra_result.append(output)
+        for j in range(n-1, -1, -1):
+           for i in range(j, -1, -1):
+              stock_value[j, i] = S0 * (u**i) * (d**(j - i))
+              pv = np.exp(-r * delta) * (qu * option_value[j + 1, i + 1] + qd * option_value[j + 1, i])
+              option_value[j, i] = np.maximum(pv, K - stock_value[j, i])
+        output = {'num_steps': n, 'CRR': option_value[0,0]}
+        crra_result.append(output)
 
     return crra_result
 
@@ -167,7 +148,7 @@ def butterfly_euro(S0, K1, K2, K3, T, r, div, sigma):
 
     value = value1 + value2 + value3
 
-return value
+    return value
 
 
 # 6. Condor - 4 calls
@@ -208,9 +189,6 @@ def condor_euro(S0, K1, K2, K3, K4, T, r, div, sigma):
 
 
 # Test Cases
-american_value = CRRA_model(100, 95, 0.2, 0.1, 0.3, 50, 1000)
-print(american_value)
-
 if __name__ == "__main__":
     euro_call_value = black_scholes(100, 100, 0.2, 0.1, 0.05, 0.3)
     print(euro_call_value)
