@@ -8,9 +8,25 @@ app = Flask(__name__)
 def home():
     return render_template("europeancall.html", context = "Testing")
 
+@app.route("/american")
+def american():
+    return render_template("american.html")
+
 @app.route("/barrier")
 def barrier():
     return render_template("barrier.html")
+
+@app.route("/bull")
+def bull():
+    return render_template("bull.html")
+
+@app.route("/butterfly")
+def butterfly():
+    return render_template("butterfly.html")
+
+@app.route("/condor")
+def condor():
+    return render_template("condor.html")
 
 def main():
     sigma = inputjlakjs
