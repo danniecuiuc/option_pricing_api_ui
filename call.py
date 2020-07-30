@@ -5,7 +5,7 @@ import math
 # 1.European Calls Pricing
 def black_scholes(S0, K, T, r, div, sigma):
     """
-    Function to calcuslates the value of a European Call Option using Black Scholes 
+    Function to calcuslates the value of an European Call Option using Black Scholes 
 
     S0: Original Stock Price
     K: Excercise Price of Call Option
@@ -30,7 +30,7 @@ def black_scholes(S0, K, T, r, div, sigma):
 # 2. American Call Option (Binomial Tree Model & Monte Carlo Simulations)
 def CRRA_model(S0, K, T, r, sigma, start_step, N):
     """
-    Function to calculates the value of a European Put Option using the CRR Binomial Model 
+    Function to calculates the value of an American Call Option using the CRR Binomial Model 
 
     S0: Original Stock Price
     K: Excercise Price of Call Option
@@ -56,13 +56,13 @@ def CRRA_model(S0, K, T, r, sigma, start_step, N):
 
         for i in range(0, j):    
             stock_value[j, i] = S0 * (u**i) * (d**(j - i))
-            option_value[j, i] = np.maximum(K - stock_value[j, i], 0)
+            option_value[j, i] = np.maximum(stock_value[j, i] - K, 0)
 
         for j in range(n-1, -1, -1):
            for i in range(j, -1, -1):
               stock_value[j, i] = S0 * (u**i) * (d**(j - i))
               pv = np.exp(-r * delta) * (qu * option_value[j + 1, i + 1] + qd * option_value[j + 1, i])
-              option_value[j, i] = np.maximum(pv, K - stock_value[j, i])
+              option_value[j, i] = np.maximum(pv, stock_value[j, i] - K)
         output = {'num_steps': n, 'CRR': option_value[0,0]}
         crra_result.append(output)
 
