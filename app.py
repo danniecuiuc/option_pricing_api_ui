@@ -5,8 +5,13 @@ from flask import Flask, redirect, url_for, render_template
 app = Flask(__name__)
 
 @app.route("/")
+@app.route("/home")
 def home():
-    return render_template("europeancall.html", context = "Testing")
+    return render_template("home.html", context = "Testing")
+
+@app.route("/european")
+def european():
+    return render_template("europeancall.html")
 
 @app.route("/american")
 def american():
@@ -16,9 +21,9 @@ def american():
 def barrier():
     return render_template("barrier.html")
 
-@app.route("/bull")
-def bull():
-    return render_template("bull.html")
+@app.route("/vertical")
+def vertical():
+    return render_template("vertical.html")
 
 @app.route("/butterfly")
 def butterfly():
