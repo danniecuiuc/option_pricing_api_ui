@@ -2,7 +2,7 @@ import numpy as np
 import scipy.stats as st
 import math
 
-# European Calls Pricing
+# 1.European Calls Pricing
 def black_scholes(S0, K, T, r, div, sigma):
     """
     Function to calcuslates the value of a European Call Option using Black Scholes 
@@ -27,7 +27,68 @@ def black_scholes(S0, K, T, r, div, sigma):
 
     return value
 
-# European Barrier Option - Down-and-out Call(continuous barrier)
+# 2. American Call Option (Binomial Tree Model & Monte Carlo Simulations)
+def CRRA_model(S0, K, T, r, sigma, start_step, N):
+    """
+    Function to calculates the value of a European Put Option using the CRR Binomial Model 
+
+    S0: Original Stock Price
+    K: Excercise Price of Call Option
+    T: Time Length of Option in which to Exercise (In Years)
+    r: Annualized Continously Compounded Risk-free Rate
+    sigma: Annualized (Future) Volatility of Stock Price Returns
+    start_step: Starting time step
+    N: Number of time steps
+
+    """    
+    crra_result = []
+    option_value = np.zeros([N+1, N+1])
+    stock_value = np.zeros([N+1, N+1])    
+
+    # FOR LOOP: a Binomial Tree from start_step to N
+    for n in range(start_step, N+1):
+        delta = T / n
+        u = np.exp(sigma * (delta)**0.5)
+        d = 1 / u
+        qu = (np.exp(r * delta) - d) / (u - d)
+        qd = 1 - qu
+
+    # CALCULATE OPTION VALUES AT CERTAIN STEPS AND POSITIONS WITHIN THE BINOMIAL TREE:
+    # Start at the last step number because we are going to be moving backwards from step number n to step number 0
+    # j = n and range stop = j 
+    j = n 
+
+    for i in range(0, j):    
+    # Then, calculate the value of the option at that exact position within the binomial tree
+    # The value of the option is MAX(stock_value - Exercise Price, 0)
+    # V = np.maximum(S - K, 0)
+    stock_value[j, i] = S0 * (u**i) * (d**(j - i))
+    option_value[j, i] = np.maximum(K - stock_value[j, i], 0)
+
+    # Now calculate the option value at each position (i) within the binomial tree at each previous step number (j) until time zero
+    # First, start with a FOR iteration on the step number
+    # Step backwards (Step -1) for the step number (j) because you are working backwards from the 2nd to last step (j - 1) to step number 0 
+    # start = (Step -1), stop = -1 (end of range is exclusive, stops at 0 when stop=-1) , step = -1 (moving backwards)
+    for j in range(n-1, -1, -1):
+
+    # Then, create a FOR iteration on the position number (i), from the top position all the way down to the bottom position of 0 (all down jumps)
+    # The top positions always equals j (the maximum number of possible up jumps at any time)
+    # Use Step -1, since you are moving from the top to the bottom. stop = -1 (end of range is exclusive, stops at 0 when stop=-1)        
+    for i in range(j, -1, -1):
+
+    # Now, calculation the PV of the option values at that specific position and step number
+    # V = e^(-r x Delta) (qu x Vup + qd x Vdown) 
+    stock_value[j, i] = S0 * (u**i) * (d**(j - i))
+    pv = np.exp(-r * delta) * (qu * option_value[j + 1, i + 1] + qd * option_value[j + 1, i])
+    option_value[j, i] = np.maximum(pv, K - stock_value[j, i])
+    # RELAY OUTPUTS TO DICTIONARY
+    output = {'num_steps': n, 'CRR': option_value[0,0]}
+    crra_result.append(output)
+
+    return crra_result
+
+
+# 3. European Barrier Option - Down-and-out Call(continuous barrier)
 def barrier_bs(B, S0, K, T, r, div, sigma):
     """ 
     Function to calculates the value of a European Autocall Call Option using Black Scholes 
@@ -58,9 +119,102 @@ def barrier_bs(B, S0, K, T, r, div, sigma):
     return value
 
 
+# 4. European Vertical Call - Bull Call Spread - same time to maturity
+def ver_spread(S0, K1, K2, T, r, div, sigma):
+
+    cdf_mean = 0.0
+    cdf_sd = 1.0
+
+    d1 = (np.log(S0 / K1) + (r - div + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d2 = (np.log(S0 / K1) + (r - div - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+
+    d3 = (np.log(S0 / K2) + (r - div + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d4 = (np.log(S0 / K2) + (r - div - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+
+    value1 = S0 * np.exp(-div * T) * st.norm.cdf(d1, cdf_mean, cdf_sd) 
+    value1 = value1 - K1 * np.exp(-r * T) * st.norm.cdf(d2, cdf_mean, cdf_sd) 
+
+    value2 = S0 * np.exp(-div * T) * st.norm.cdf(d3, cdf_mean, cdf_sd) 
+    value2 = value2 - K2 * np.exp(-r * T) * st.norm.cdf(d4, cdf_mean, cdf_sd) 
+
+    value = value1 + value2
+     
+    return value
+
+# 5. butterfly - 3 calls
+def butterfly_euro(S0, K1, K2, K3, T, r, div, sigma):
+
+    cdf_mean = 0.0
+    cdf_sd = 1.0
+
+    d1 = (np.log(S0 / K1) + (r - div + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d2 = (np.log(S0 / K1) + (r - div - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+
+    d3 = (np.log(S0 / K2) + (r - div + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d4 = (np.log(S0 / K2) + (r - div - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+
+    d5 = (np.log(S0 / K3) + (r - div + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d6 = (np.log(S0 / K3) + (r - div - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+
+    value1 = S0 * np.exp(-div * T) * st.norm.cdf(d1, cdf_mean, cdf_sd) 
+    value1 = value1 - K1 * np.exp(-r * T) * st.norm.cdf(d2, cdf_mean, cdf_sd) 
+
+    value2 = S0 * np.exp(-div * T) * st.norm.cdf(d3, cdf_mean, cdf_sd) 
+    value2 = value2 - K2 * np.exp(-r * T) * st.norm.cdf(d4, cdf_mean, cdf_sd) 
+
+    value3 = S0 * np.exp(-div * T) * st.norm.cdf(d5, cdf_mean, cdf_sd) 
+    value3 = value3 - K3 * np.exp(-r * T) * st.norm.cdf(d6, cdf_mean, cdf_sd) 
+
+    value = value1 + value2 + value3
+
+return value
+
+
+# 6. Condor - 4 calls
+def condor_euro(S0, K1, K2, K3, K4, T, r, div, sigma):
+
+    cdf_mean = 0.0
+    cdf_sd = 1.0
+
+    d1 = (np.log(S0 / K1) + (r - div + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d2 = (np.log(S0 / K1) + (r - div - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+
+    d3 = (np.log(S0 / K2) + (r - div + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d4 = (np.log(S0 / K2) + (r - div - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+
+    d5 = (np.log(S0 / K3) + (r - div + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d6 = (np.log(S0 / K3) + (r - div - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    
+    d7 = (np.log(S0 / K4) + (r - div + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d8 = (np.log(S0 / K4) + (r - div - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+
+
+    value1 = S0 * np.exp(-div * T) * st.norm.cdf(d1, cdf_mean, cdf_sd) 
+    value1 = value1 - K1 * np.exp(-r * T) * st.norm.cdf(d2, cdf_mean, cdf_sd) 
+
+    value2 = S0 * np.exp(-div * T) * st.norm.cdf(d3, cdf_mean, cdf_sd) 
+    value2 = value2 - K2 * np.exp(-r * T) * st.norm.cdf(d4, cdf_mean, cdf_sd) 
+
+    value3 = S0 * np.exp(-div * T) * st.norm.cdf(d5, cdf_mean, cdf_sd) 
+    value3 = value3 - K3 * np.exp(-r * T) * st.norm.cdf(d6, cdf_mean, cdf_sd) 
+
+    value4 = S0 * np.exp(-div * T) * st.norm.cdf(d7, cdf_mean, cdf_sd) 
+    value4 = value4 - K4 * np.exp(-r * T) * st.norm.cdf(d8, cdf_mean, cdf_sd) 
+
+    value = value1 + value2 + value3 + value4
+
+    return value
+
+
+
+# Test Cases
+american_value = CRRA_model(100, 95, 0.2, 0.1, 0.3, 50, 1000)
+print(american_value)
+
 if __name__ == "__main__":
     euro_call_value = black_scholes(100, 100, 0.2, 0.1, 0.05, 0.3)
     print(euro_call_value)
+    american_value = CRRA_model(100, 95, 0.2, 0.1, 0.3, 50, 1000)
+    print(american_value)
     barrier = barrier_bs(30, 100, 90, 2, 0.05, 0.03, 0.2)
     print(barrier)
-
