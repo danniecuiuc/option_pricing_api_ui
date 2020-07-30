@@ -118,7 +118,7 @@ def ver_spread(S0, K1, K2, T, r, div, sigma):
     value2 = S0 * np.exp(-div * T) * st.norm.cdf(d3, cdf_mean, cdf_sd) 
     value2 = value2 - K2 * np.exp(-r * T) * st.norm.cdf(d4, cdf_mean, cdf_sd) 
 
-    value = value1 + value2
+    value = value1 - value2
      
     return value
 
@@ -146,7 +146,7 @@ def butterfly_euro(S0, K1, K2, K3, T, r, div, sigma):
     value3 = S0 * np.exp(-div * T) * st.norm.cdf(d5, cdf_mean, cdf_sd) 
     value3 = value3 - K3 * np.exp(-r * T) * st.norm.cdf(d6, cdf_mean, cdf_sd) 
 
-    value = value1 + value2 + value3
+    value = value1 - 2 * value2 + value3
 
     return value
 
@@ -182,7 +182,7 @@ def condor_euro(S0, K1, K2, K3, K4, T, r, div, sigma):
     value4 = S0 * np.exp(-div * T) * st.norm.cdf(d7, cdf_mean, cdf_sd) 
     value4 = value4 - K4 * np.exp(-r * T) * st.norm.cdf(d8, cdf_mean, cdf_sd) 
 
-    value = value1 + value2 + value3 + value4
+    value = value1 - value2 - value3 + value4
 
     return value
 
@@ -191,8 +191,12 @@ def condor_euro(S0, K1, K2, K3, K4, T, r, div, sigma):
 # Test Cases
 if __name__ == "__main__":
     euro_call_value = black_scholes(100, 100, 0.2, 0.1, 0.05, 0.3)
-    print(euro_call_value)
-    american_value = CRRA_model(100, 95, 0.2, 0.1, 0.3, 50, 1000)
-    print(american_value)
+    print(euro_call_value)   # Tested OK
+   # american_value = CRRA_model(100, 95, 0.2, 0.1, 0.3, 50, 300)
+   # print(american_value)
     barrier = barrier_bs(30, 100, 90, 2, 0.05, 0.03, 0.2)
     print(barrier)
+    ver_bull = ver_spread(98, 95, 100, 0.2, 0.1, 0, 0.3)
+    print(ver_bull)    # Tested OK
+    butterfly_test= butterfly_euro(98, 90, 95, 100, 0.2, 0.1, 0, 0.3)
+    print(butterfly_test)    # Tested OK
