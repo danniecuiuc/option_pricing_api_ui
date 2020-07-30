@@ -1,2 +1,2 @@
 # Derivatives Pricing App
-By Dannie Chen
+ - By Dannie Chen
