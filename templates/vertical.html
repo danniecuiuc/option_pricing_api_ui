@@ -1,5 +1,105 @@
 {% extends "base.html" %}
 {% block title %} Vertical Call Spread {% endblock %}
 {% block content %} 
-    <h1> Vertical Call Spread Pricing </h1>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Calculator</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+            />
+
+        <style>
+.alert {
+    background: green;
+    padding: 1rem;
+    border-radius: 5px;
+    color: white;
+    margin: 1rem;
+}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h3>Vertical Call Spread</h3>
+        </div>
+
+        <!-- Form -->
+        <div class="container">
+            <form action="/sendver" method="POST">
+                <label for="Original Price of Underlying Asset">Original Price of Underlying Asset: S0</label>
+                <input
+                    type="text"
+                    placeholder="Original Stock Price"
+                    class="u-full-width"
+                    name="S0"
+                    />
+
+                <label for="The Lower Strike Price for the 1st Call">The Lower Strike Price for the 1st Call: K1</label>
+                <input
+                    type="text"
+                    placeholder="The Lower Strike Price for the 1st Call"
+                    class="u-full-width"
+                    name="K1"
+                    />
+
+                <label for="The Higher Strike Price for the 2nd Call">The Higher Strike Price for the 2nd Call: K2</label>
+                <input
+                    type="text"
+                    placeholder="The Higher Strike Price for the 2nd Call"
+                    class="u-full-width"
+                    name="K2"
+                    />
+
+                <label for="Time to Maturity">Time Length of Option in which to Exercise (In Years): T</label>
+                <input
+                    type="text"
+                    placeholder="Time to Maturity"
+                    class="u-full-width"
+                    name="T"
+                    />
+
+                <label for="Discount Risk-free Rate">Annualized Continously Compounded Risk-free Rate: r</label>
+                <input
+                    type="text"
+                    placeholder="Discount Risk-free Rate"
+                    class="u-full-width"
+                    name="r"
+                    />
+
+                <label for="Continuous Dividend Yield">Continuous Dividend Yield (If asset pays no divident, put 0 here): div</label>
+                <input
+                    type="text"
+                    placeholder="Continuous Dividend Yield"
+                    class="u-full-width"
+                    name="div"
+                    />
+
+                <label for="Annualized Volatility">Annualized (Future) Volatility of Stock Price Returns (In Black Scholes Model, we assume the volatility is constant): sigma</label>
+                <input
+                    type="text"
+                    placeholder="Annualized Volatility"
+                    class="u-full-width"
+                    name="sigma"
+                    />
+
+                <label for="operation">operation</label>
+                <select class="u-full-width" name="operation">
+                    <option value="black_scholes">Black Sholes</option>
+                </select>
+
+                <input type="submit" value="Calculate" id="calc_btn" />
+                <br />
+                <div class="alert">
+                    {{ sum }}
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
 {% endblock %}
+
