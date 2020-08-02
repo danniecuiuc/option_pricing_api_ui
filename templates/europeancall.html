@@ -1,5 +1,97 @@
 {% extends "base.html" %}
 {% block title %} European Call {% endblock %}
 {% block content %} 
-    <h1> European Call Pricing </h1>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Calculator</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+            />
+
+        <style>
+.alert {
+    background: green;
+    padding: 1rem;
+    border-radius: 5px;
+    color: white;
+    margin: 1rem;
+}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h3>European Call</h3>
+        </div>
+
+        <!-- Form -->
+        <div class="container">
+            <form action="/send" method="POST">
+                <label for="Original Price of Underlying Asset">Original Price of Underlying Asset: S0</label>
+                <input
+                    type="text"
+                    placeholder="Original Stock Price"
+                    class="u-full-width"
+                    name="S0"
+                    />
+
+                <label for="Strike Price">Strike Price of Call Option: K</label>
+                <input
+                    type="text"
+                    placeholder="Strike Price"
+                    class="u-full-width"
+                    name="K"
+                    />
+
+                <label for="Time to Maturity">Time Length of Option in which to Exercise (In Years): T</label>
+                <input
+                    type="text"
+                    placeholder="Time to Maturity"
+                    class="u-full-width"
+                    name="T"
+                    />
+
+                <label for="Discount Risk-free Rate">Annualized Continously Compounded Risk-free Rate: r</label>
+                <input
+                    type="text"
+                    placeholder="Discount Risk-free Rate"
+                    class="u-full-width"
+                    name="r"
+                    />
+
+                <label for="Continuous Dividend Yield">Continuous Dividend Yield (If asset pays no divident, put 0 here): div</label>
+                <input
+                    type="text"
+                    placeholder="Continuous Dividend Yield"
+                    class="u-full-width"
+                    name="div"
+                    />
+
+                <label for="Annualized Volatility">Annualized (Future) Volatility of Stock Price Returns (In Black Scholes Model, we assume the volatility is constant): sigma</label>
+                <input
+                    type="text"
+                    placeholder="Annualized Volatility"
+                    class="u-full-width"
+                    name="sigma"
+                    />
+
+                <label for="operation">operation</label>
+                <select class="u-full-width" name="operation">
+                    <option value="black_scholes">Black Sholes</option>
+                </select>
+
+                <input type="submit" value="Calculate" id="calc_btn" />
+                <br />
+                <div class="alert">
+                    {{ sum }}
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
 {% endblock %}
+

@@ -1,6 +1,6 @@
 import call
 from call import barrier_bs, black_scholes
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 
 app = Flask(__name__)
 
@@ -12,6 +12,24 @@ def home():
 @app.route("/european")
 def european():
     return render_template("europeancall.html")
+
+@app.route('/send', methods=['POST'])
+def send(sum=sum):
+    if request.method == 'POST':
+        S0 = request.form['S0']
+        K = request.form['K']
+        T = request.form['T']
+        r = request.form['r']
+        div = request.form['div']
+        sigma = request.form['sigma']
+        operation = request.form['operation']
+
+        if operation == 'black_scholes':
+            sum = black_scholes(float(S0), float(K), float(T), float(r), float(div), float(sigma))
+            return render_template('europeancall.html', sum=sum)
+
+        else:
+            return render_template('aeuropeancall.html')
 
 @app.route("/american")
 def american():
