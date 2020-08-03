@@ -31,8 +31,13 @@ $ source ./venv/bin/activate
 ## c. Project requirements
 Create a secure API and UI using certain tools and languages to quickly price a call option and a call spread.
 ## Usage
+<br/>First, select the product that you want to price in the navigation bar. 
 ![Alt text](/home.png?raw=true "home page")
+<br/>
+<br/> Then, provide all the inputs needed for each model in the blocks.
 ![Alt text](/barrier.png?raw=true "pricing page")
+<br/>
+<br/> Finally, you can see the calculation result in the green bar. (in $)
 ![Alt text](/result.png?raw=true "output")
 ## Release Planning
 - Add other pricing models (e.g. Heston SV model, Monte Carlo Simulation) to price call options;
