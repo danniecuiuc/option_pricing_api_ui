@@ -4,34 +4,34 @@
 ## a. Description
 This repo contains an API and UI to price different types of call options and call spreads. The backend and frontend can be found in this repository. The tool used to build the webserver and web UI is Python flask.
 ## b. Installation
-<br/>First make sure that you have python3 and pip3 installed.
+First make sure that you have python3 and pip3 installed.
 <br/>Next, install virtualenv if you haven't.
 ```python
 $ pip3 install virtualenv 
 ```
-<br/>In project folder, run
+In project folder, run
 ```python
 $ virtualenv -p python3 venv
 ```
-<br/>to initialize python virtual environment.
+to initialize python virtual environment.
 <br/>Activate virtual environment with:
 ```python
 $ source ./venv/bin/activate
 ```
-<br/>Install flask in venv
+Install flask in venv
 ```python
 (venv)$ pip install flask
 ```
-<br/>App is ready to run:
+App is ready to run:
 ```python
 (venv)$ python app.py
 ```
-<br/>Visit http://127.0.0.1:5000 to view the Web UI locally.
+Visit http://127.0.0.1:5000 to view the Web UI locally.
 
 ## c. Project requirements
 Create a secure API and UI using certain tools and languages to quickly price a call option and a call spread.
 ## Usage
-<br/>First, select the product that you want to price in the navigation bar. 
+First, select the product that you want to price in the navigation bar. 
 <br/>
 ![Alt text](/home.png?raw=true "home page")
 <br/>
