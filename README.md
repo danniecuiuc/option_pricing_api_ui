@@ -32,7 +32,7 @@ $ source ./venv/bin/activate
 Create a secure API and UI using certain tools and languages to quickly price a call option and a call spread.
 ## Usage
 <br/>First, select the product that you want to price in the navigation bar. 
-![Alt text](/home.png?raw=true "home page"){: style="zoom:67%;"}
+![Alt text](/home.png?raw=true "home page" style="zoom:67%;")
 <br/>
 <br/> Then, provide all the inputs needed for each model in the blocks.
 ![Alt text](/barrier.png?raw=true "pricing page")
