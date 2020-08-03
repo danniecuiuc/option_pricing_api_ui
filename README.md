@@ -50,10 +50,10 @@ Finally, you can see the calculation result in the green bar. (in $)
 All URLs referenced in the documentation have the base path http://127.0.0.1:5000/. 
 ### The endpoint paths and required parameters
 Parameters should be included in the request for each endpoint path. In a request, you will replace the placeholders with real values.
-#### European Call
+### European Call
 http://127.0.0.1:5000/european
-http://127.0.0.1:5000/send (HTTP POST method)
-Required Parameters:
+<br/>http://127.0.0.1:5000/send (HTTP POST method)
+<br/>Required Parameters:
  - S0: Original price of underlying asset (e.g. If the underlying stock price is $100, put "100" into the placeholder. )
  - K: Exercise pice of the option
  - T: Time to maturity (In Years): T
