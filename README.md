@@ -61,7 +61,7 @@ Parameters should be included in the request for each endpoint path. In a reques
     <br/> Urls:
     - http://127.0.0.1:5000/american
     - http://127.0.0.1:5000/senda (HTTP POST method)
-    <br/> Required parameters: 
+    Required parameters: 
     - S0: Original Price of Underlying Asset, for example, if the underlying stock price is $100, put "100" into the placeholder 
     - K
 - http://127.0.0.1:5000/barrier
