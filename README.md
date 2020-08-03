@@ -51,16 +51,16 @@ All URLs referenced in the documentation have the base path http://127.0.0.1:500
 ### The endpoint paths and required parameters
 Parameters should be included in the request for each endpoint path. In a request, you will replace the placeholders with real values.
 #### European Call
-    <br/>http://127.0.0.1:5000/european
-    <br/>http://127.0.0.1:5000/send (HTTP POST method)
-    <br/>Required Parameters:
-    - S0: Original price of underlying asset (e.g. If the underlying stock price is $100, put "100" into the placeholder. )
-    - K: Exercise pice of the option
-    - T: Time to maturity (In Years): T
-    - r: Annualized Continously Compounded Risk-free Rate:
-    - div: Continuous Dividend Yield (If asset pays no divident, put 0 here): div
-    - sigma: Annualized (Future) Volatility of Stock Price Returns (In Black Scholes Model, we assume the volatility is constant)
-    - operation: Black Scholes only for now (future plan: add Heston Model here)
+http://127.0.0.1:5000/european
+http://127.0.0.1:5000/send (HTTP POST method)
+Required Parameters:
+ - S0: Original price of underlying asset (e.g. If the underlying stock price is $100, put "100" into the placeholder. )
+ - K: Exercise pice of the option
+ - T: Time to maturity (In Years): T
+ - r: Annualized Continously Compounded Risk-free Rate:
+ - div: Continuous Dividend Yield (If asset pays no divident, put 0 here): div
+ - sigma: Annualized (Future) Volatility of Stock Price Returns (In Black Scholes Model, we assume the volatility is constant)
+ - operation: Black Scholes only for now (future plan: add Heston Model here)
 #### American Call
     <br/>http://127.0.0.1:5000/american
     <br/>http://127.0.0.1:5000/senda (HTTP POST method)
