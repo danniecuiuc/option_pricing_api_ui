@@ -30,17 +30,17 @@ Visit http://127.0.0.1:5000 to view the Web UI locally.
 
 ## c. Project requirements
 Create a secure API and UI using certain tools and languages to quickly price a call option and a call spread.
-## Usage
+## d. Usage
 First, select the product that you want to price in the navigation bar. 
-<br/>
+<br/>  
 ![Alt text](/home.png?raw=true "home page")
-<br/>
+<br/>  
 <br/> Then, provide all the inputs needed for each model in the blocks.
-<br/>
+<br/>  
 ![Alt text](/barrier.png?raw=true "pricing page")
-<br/>
+<br/>  
 <br/> Finally, you can see the calculation result in the green bar. (in $)
-<br/>
+<br/>  
 ![Alt text](/result.png?raw=true "output")
 ## Release Planning
 - Add other pricing models (e.g. Heston SV model, Monte Carlo Simulation) to price call options;
