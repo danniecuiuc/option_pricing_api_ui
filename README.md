@@ -53,7 +53,8 @@ Parameters should be included in the request for each endpoint path. In a reques
 ### European Call
 http://127.0.0.1:5000/european
 <br/>http://127.0.0.1:5000/send (HTTP POST method)
-<br/>Required Parameters:
+<br/> 
+<br/> Required Parameters:
  - S0: Original price of underlying asset (e.g. If the underlying stock price is $100, put "100" into the placeholder. )
  - K: Exercise pice of the option
  - T: Time to maturity (In Years): T
