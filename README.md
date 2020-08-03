@@ -35,11 +35,11 @@ First, select the product that you want to price in the navigation bar.
 <br/>  
 ![Alt text](/home.png?raw=true "home page")
 <br/>  
-<br/> Then, provide all the inputs needed for each model in the blocks.
+Then, provide all the inputs needed for each model in the blocks.
 <br/>  
 ![Alt text](/barrier.png?raw=true "pricing page")
 <br/>  
-<br/> Finally, you can see the calculation result in the green bar. (in $)
+Finally, you can see the calculation result in the green bar. (in $)
 <br/>  
 ![Alt text](/result.png?raw=true "output")
 ## Release Planning
