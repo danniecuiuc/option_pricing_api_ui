@@ -1,10 +1,10 @@
 # Derivatives Pricing App
- - By Dannie Che€ý,n€ý,
+ - By Dannie Chen
 
 ## a. Description
 This repo contains an API and UI to price different types of call options and call spreads. The tool used is Python flask.
 ## b. Installation
-First make sure that you have python3 and pip3 installed.
+First, make sure that you have python3 and pip3 installed.
 <br/>Next, install virtualenv if you haven't.
 ```python
 $ pip3 install virtualenv 
@@ -45,12 +45,12 @@ Finally, you can see the calculation result in the green bar. (in $)
 ### Pricing Models Used 
 - Binomial Tree (for American Call, Down-and-out Barrier Call, Vertical Call Spread, Butterfly, and Condor)
 - Black Scholes Fomula (for European Call, Down-and-out Barrier Call, Vertical Call Spread, Butterfly, and Condor)
-## e. endpoint map
+## e. Endpoint Map
 ### The base path
 All URLs referenced in the documentation have the base path http://127.0.0.1:5000/. 
 ### The endpoint paths and required parameters
 Parameters should be included in the request for each endpoint path. In a request, you will replace the placeholders with real values.
-- European Call
+#### European Call
     <br/>http://127.0.0.1:5000/european
     <br/>http://127.0.0.1:5000/send (HTTP POST method)
     <br/>Required Parameters:
@@ -61,14 +61,14 @@ Parameters should be included in the request for each endpoint path. In a reques
     - div: Continuous Dividend Yield (If asset pays no divident, put 0 here): div
     - sigma: Annualized (Future) Volatility of Stock Price Returns (In Black Scholes Model, we assume the volatility is constant)
     - operation: Black Scholes only for now (future plan: add Heston Model here)
-- American Call
+#### American Call
     <br/>http://127.0.0.1:5000/american
     <br/>http://127.0.0.1:5000/senda (HTTP POST method)
     <br/>Required parameters: 
     - S0, K, T, r, div, sigma (same as european call)
     - N: Number of Steps in the Binomial Tree, should be larger to reduce errors, but if larger number of steps chosen, it might take some time to calculate the price
     - operation: Binomial Trees only for now (future plan: add Monte Carlo Simulation Methods here) 
-- Down-and-out Barrier Call Option (European) 
+#### Down-and-out Barrier Call Option (European) 
     <br/>http://127.0.0.1:5000/barrier
     <br/>http://127.0.0.1:5000/sendb (HTTP POST method)
     <br/>Required parameters: 
@@ -76,7 +76,7 @@ Parameters should be included in the request for each endpoint path. In a reques
     - If Binomial Tree Model Chosen: additional input N - Number of Steps in the Binomial Tree, should be larger to reduce errors (e.g. suggest to choose 1000 here) 
     - If Black Scholes Chosen: no need to input N 
     - operation: Binomial Trees or Black Scholes 
-- Vertical Call Spread (European)
+#### Vertical Call Spread (European)
     <br/>http://127.0.0.1:5000/vertical
     <br/>http://127.0.0.1:5000/sendver (HTTP POST method)
     <br/>Required parameters: 
@@ -84,7 +84,7 @@ Parameters should be included in the request for each endpoint path. In a reques
     - K1: The long-position call's strike price, should be smaller than K2
     - K2: The short-position call's strike price, should be larger than K1
     - operation: Black Scholes only for now (future plan: add Heston Model here) 
-- Butterfly (European)
+#### Butterfly (European)
     <br/>http://127.0.0.1:5000/butterfly
     <br/>http://127.0.0.1:5000/sendbut
     <br/>Required parameters: 
@@ -93,7 +93,7 @@ Parameters should be included in the request for each endpoint path. In a reques
     - K2: The short-position call's strike price, should be larger than K1, but smaller than K3
     - K3: The long-position call's strike price, should be larger than K1 and K2 
     - operation: Black Scholes only for now (future plan: add Heston Model here)
-- Condor(European)
+#### Condor(European)
     <br/>http://127.0.0.1:5000/condor
     <br/>http://127.0.0.1:5000/sendc
     <br/>Required parameters: 
