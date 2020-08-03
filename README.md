@@ -8,6 +8,7 @@ First make sure that you have python3 and pip3 installed.
 Next, install virtualenv if you haven't.
 ```python
 $ pip3 install virtualenv 
+```
 In project folder, run
 ```python
 $ virtualenv -p python3 venv
