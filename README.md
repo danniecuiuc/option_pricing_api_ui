@@ -54,9 +54,9 @@ Parameters should be included in the request for each endpoint path. In a reques
     <br/> Urls:
     - http://127.0.0.1:5000/european
     - http://127.0.0.1:5000/send (HTTP POST method)
-    <br/> Required parameters: 
+    <br/> Required Parameters:
     - S0: Original Price of Underlying Asset, for example, if the underlying stock price is $100, put "100" into the placeholder 
-    - K
+    - K: 
 - American Call
     <br/> Urls:
     - http://127.0.0.1:5000/american
