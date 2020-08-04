@@ -9,7 +9,7 @@ Install python3 and pip3.
 ```python
 pip3 install flask
 ```
-Run the app use python3:
+Run the app using python3:
 ```python
 python3 app.py
 ```
