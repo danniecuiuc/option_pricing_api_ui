@@ -97,5 +97,3 @@ http://127.0.0.1:5000/condor
 - Add pages for more advanced and complex derivatives (e.g. discrete barrier callable notes, derivatives with path dependency features);
 - Add visualization (e.g. line graphs) for price changes of each derivative as expiration nears;
 - Make the User Interface more aesthetically pleasing.
-## g. Authors and acknowledgment
-I thank Mr. Barton for his guidance throughout this project and for his help in writing the documentation.
